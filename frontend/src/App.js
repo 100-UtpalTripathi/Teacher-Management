@@ -2,7 +2,7 @@ import './App.css';
 import Navbar from './components/Navbar.js';
 import Card from './components/Card.js';
 import axios from "axios";
-import {React, useEffect, useState} from "react";
+import { React, useEffect, useState } from "react";
 
 
 function App() {
@@ -26,13 +26,17 @@ function App() {
 
   useEffect(() => {
     // This will log the updated state when teachers changes
-    console.log(teachers);
+    console.log("bkd: ", teachers);
   }, [teachers]); // Add teachers to the dependency array
 
   return (
     <div className="App">
       <Navbar />
-      <Card />
+      <div>
+        {teachers.map((teacher) => (
+          <Card key={teacher.id} teacher={teacher} />
+        ))}
+      </div>
     </div>
   );
 }
