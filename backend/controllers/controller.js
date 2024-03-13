@@ -17,8 +17,8 @@ const readDataFromFile = async () => {
 // Function to write data to the file asynchronously
 const writeDataToFile = async (data) => {
   try {
-    const JsonObject =JSON.stringify(data, null, 2);
-    fs.writeFileSync(dataFilePath,JsonObject );
+    const JsonObject = JSON.stringify(data, null, 2);
+    fs.writeFileSync(dataFilePath, JsonObject);
   } catch (error) {
     console.error("Error writing data to file:", error);
   }
@@ -92,7 +92,7 @@ export const searchTeacherController = async (req, res) => {
     //console.log(lowercaseQuery);
     return lowercaseName.includes(lowercaseQuery);
   });
-  console.log(searchResults);
+  //console.log(searchResults);
   res.json(searchResults);
 };
 
@@ -132,4 +132,20 @@ export const deleteTeacherController = async (req, res) => {
   } else {
     res.status(404).json({ message: "Teacher not found" });
   }
+};
+
+export const findByIdController = async (req, res) => {
+  let teachers = await readDataFromFile();
+  const teacherId = req.params.id;
+
+  const searchResults = teachers.filter((teacher) => {
+    // Case-insensitive search by converting both the name and the search query to lowercase
+    const databaseId = teacher.id;
+    //console.log(lowercaseName);
+    const queryId = teacherId;
+    //console.log(lowercaseQuery);
+    return databaseId == queryId;
+  });
+  //console.log(searchResults);
+  res.json(searchResults);
 };

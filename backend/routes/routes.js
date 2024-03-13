@@ -6,7 +6,8 @@ import {
   searchTeacherController,
   updateTeacherController,
   deleteTeacherController,
-} from "../controllers/controller.js"; 
+  findByIdController,
+} from "../controllers/controller.js";
 
 const router = express.Router();
 
@@ -28,4 +29,6 @@ router.put("/teachers/update/:id", updateTeacherController);
 // Route for deleting an teacher
 router.delete("/teachers/delete/:id", deleteTeacherController);
 
+//Route for finding the record by id
+router.get("/teachers/findById/:id", findByIdController)
 export default router;

@@ -1,7 +1,33 @@
-import React from 'react';
-import '../css/navbar.css'
+import { React, useState, useEffect } from 'react';
+import '../css/navbar.css';
+import axios from "axios";
+
 
 const Navbar = () => {
+
+  const [formData, setFormData] = useState({
+    name: '',
+    age: '',
+    dob: '',
+    classes: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/teachers/add', formData);
+      console.log(response.data); // Assuming the server responds with some data
+    } catch (error) {
+      console.error('Error adding teacher:', error);
+    }
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -44,11 +70,11 @@ const Navbar = () => {
                       Age
                       <div className="age-container">
                         <div>
-                          <label for="min"></label>
+                          <label htmlFor="min"></label>
                           <input type="number" id="min" placeholder="Min" />
                         </div>
                         <div>
-                          <label for="max"></label>
+                          <label htmlFor="max"></label>
                           <input type="number" id="max" placeholder="Max" />
                         </div>
                       </div>
@@ -56,7 +82,7 @@ const Navbar = () => {
                     <li>
                       <div>
                         No. of Classes:
-                        <label for="classes"></label>
+                        <label htmlFor="classes"></label>
                         <input type="number" id="classes" placeholder="classes" />
                       </div>
                     </li>
@@ -97,34 +123,35 @@ const Navbar = () => {
         <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header">
-              <h1 className="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+              <h1 className="modal-title fs-5" id="staticBackdropLabel">Add New Teacher</h1>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                  <label for="teacherName" className="form-label">Full Name</label>
-                  <input type="text" className="form-control" id="teacherName" required />
-
-                </div>
-                <div className="mb-3">
-                  <label for="age" className="form-label">Age</label>
-                  <input type="number" className="form-control" id="age" />
+                  <label htmlFor="name" className="form-label">Full Name</label>
+                  <input type="text" className="form-control" id="name" name="name" value={formData.name} onChange={handleInputChange} required />
                 </div>
 
                 <div className="mb-3">
-                  <label for="dob" className="form-label">Date of Birth</label>
-                  <input type="date" className="form-control" id="dob" />
+                  <label htmlFor="age" className="form-label">Age</label>
+                  <input type="number" className="form-control" id="age" name="age" value={formData.age} onChange={handleInputChange} />
                 </div>
+
                 <div className="mb-3">
-                  <label for="noofclasses" className="form-label">No. of Classes</label>
-                  <input type="number" className="form-control" id="noofclasses" />
+                  <label htmlFor="dob" className="form-label">Date of Birth</label>
+                  <input type="date" className="form-control" id="dob" name="dob" value={formData.dob} onChange={handleInputChange} />
                 </div>
+
+                <div className="mb-3">
+                  <label htmlFor="classes" className="form-label">No. of Classes</label>
+                  <input type="number" className="form-control" id="classes" name="classes" value={formData.classes} onChange={handleInputChange} />
+                </div>
+
                 <div className="modal-footer">
                   <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
                   <button type="submit" className="btn btn-success">Add</button>
                 </div>
-
               </form>
             </div>
           </div>

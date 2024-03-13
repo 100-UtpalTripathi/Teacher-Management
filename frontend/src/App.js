@@ -32,7 +32,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <div>
+      <div className="card-container">
         {teachers.map((teacher) => (
           <Card key={teacher.id} teacher={teacher} />
         ))}
