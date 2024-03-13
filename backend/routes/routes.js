@@ -23,9 +23,9 @@ router.get("/teachers/filter", filterTeacherController);
 router.get("/teachers/search", searchTeacherController);
 
 // Route for updating an teacher record
-router.put("/teachers/:id", updateTeacherController);
+router.put("/teachers/update/:id", updateTeacherController);
 
 // Route for deleting an teacher
-router.delete("/teachers/:id", deleteTeacherController);
+router.delete("/teachers/delete/:id", deleteTeacherController);
 
 export default router;
