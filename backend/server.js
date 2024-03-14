@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import router from "./routes/routes.js"
+import { readDataFromFile } from './controllers/controller.js'
 
 import path from "path";
 import { fileURLToPath } from "url";
@@ -14,7 +15,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-app.use("/api", router);
+
 app.use(express.static(path.join(__dirname, '/frontend/build')));
 
 
@@ -25,7 +26,8 @@ app.get('/', (req, res) => {
   res.send("<h1> Checking </h1>")
 });
 
-
+readDataFromFile();
+app.use("/api", router);
 
 app.listen(PORT, () => {
   console.log("Server running at ", PORT);
