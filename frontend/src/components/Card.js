@@ -51,6 +51,22 @@ const Card = (props) => {
     }
   };
 
+  const handleDelete = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.delete(`http://localhost:5000/api/teachers/delete/${props.teacher.id}`);
+      //console.log(response.data); // Assuming the server responds with some data
+      // onUpdate(); // Trigger a callback to refresh the teacher data
+
+      const updatedTeachers = teachers.filter((teacher) => teacher.id !== props.teacher.id);
+      setTeachers(updatedTeachers);
+
+    } catch (error) {
+      console.error('Error Deleting teacher:', error);
+    }
+  };
+
   return (
     <>
       <div className="card" style={{ width: "18rem", margin: "15px 8px" }}>
@@ -64,7 +80,6 @@ const Card = (props) => {
 
           <div className="d-flex justify-content-around">
             <a
-              href="#"
               className="btn btn-warning"
               data-bs-toggle="modal"
               data-bs-target={`#updateteacher-${props.teacher.id}`}
@@ -72,7 +87,9 @@ const Card = (props) => {
             >
               Update
             </a>
-            <a href="#" className="btn btn-danger">
+            <a onClick={handleDelete}
+              data-bs-target={`#updateteacher-${props.teacher.id}`}
+              className="btn btn-danger">
               Delete
             </a>
           </div>
