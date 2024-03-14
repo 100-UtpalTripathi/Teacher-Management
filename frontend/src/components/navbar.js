@@ -10,6 +10,7 @@ const Navbar = () => {
   const [minAge, setMinAge] = useState('');
   const [maxAge, setMaxAge] = useState('');
   const [classes, setClasses] = useState('');
+  const [avgClasses, setAvgClasses] = useState('');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -86,7 +87,7 @@ const Navbar = () => {
     } catch (error) {
       console.error('Error fetching teachers:', error);
     }
-  }
+  };
 
   const handleMinAgeChange = (e) => {
     setMinAge(e.target.value);
@@ -107,6 +108,26 @@ const Navbar = () => {
       setTeachers(response.data);
     } catch (error) {
       console.error('Error filtering teachers:', error);
+    }
+  };
+
+  const getAvgClasses = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/teachers');
+      const Teachers = response.data;
+
+      const totalClasses = Teachers.reduce((acc, teacher) => acc + parseInt(teacher.classes), 0);
+      console.log("totalClass", totalClasses);
+      // console.log("accClass", totalClasses);
+
+      // Calculate the average
+      let curAvgClasses = (totalClasses / Teachers.length).toFixed(2);
+
+      setAvgClasses(curAvgClasses);
+
+      // console.log("Response data: ", response.data);
+    } catch (error) {
+      console.error('Error fetching teachers:', error);
     }
   };
 
@@ -158,7 +179,7 @@ const Navbar = () => {
 
               </li>
               <li>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bonusModal">
+                <button type="button" onClick={getAvgClasses} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bonusModal">
                   Bonus
                 </button>
               </li>
@@ -235,15 +256,14 @@ const Navbar = () => {
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="bonusModalLabel">Modal title</h1>
+              <h1 class="modal-title fs-5" id="bonusModalLabel">Additional Info</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              ...
+              (Average classes per Teacher : {avgClasses})
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
             </div>
           </div>
         </div>
