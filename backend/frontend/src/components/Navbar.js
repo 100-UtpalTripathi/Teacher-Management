@@ -36,7 +36,7 @@ const Navbar = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/teachers/add', formData);
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/teachers/add`, formData);
       //console.log(response.data); // Assuming the server responds with some data
       setTeachers([...teachers, response.data.teacher]);
       //console.log("Teachers dekho : ", response.data.teacher);
@@ -68,7 +68,7 @@ const Navbar = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.get(`http://localhost:5000/api/teachers/search?name=${searchQuery}`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/teachers/search?name=${searchQuery}`);
       console.log("Search mein: ", response.data);
 
       setTeachers(response.data);
@@ -80,7 +80,7 @@ const Navbar = () => {
 
   const showAllTeachers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/teachers');
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/teachers`);
       setTeachers(response.data);
 
       // console.log("Response data: ", response.data);
@@ -103,7 +103,7 @@ const Navbar = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.get(`http://localhost:5000/api/teachers/filter?minAge=${minAge}&maxAge=${maxAge}&classes=${classes}`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/teachers/filter?minAge=${minAge}&maxAge=${maxAge}&classes=${classes}`);
       console.log("Filtered teachers: ", response.data);
       setTeachers(response.data);
     } catch (error) {
@@ -113,7 +113,7 @@ const Navbar = () => {
 
   const getAvgClasses = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/teachers');
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/teachers`);
       const Teachers = response.data;
 
       const totalClasses = Teachers.reduce((acc, teacher) => acc + parseInt(teacher.classes), 0);
