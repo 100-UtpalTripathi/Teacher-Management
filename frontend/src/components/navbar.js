@@ -5,6 +5,7 @@ import { UseTeacherData } from '../contexts/TeacherContext';
 
 const Navbar = () => {
   const [teachers, setTeachers] = UseTeacherData();
+  const [searchQuery, setSearchQuery] = useState('');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -13,9 +14,17 @@ const Navbar = () => {
     classes: '',
   });
 
+  useEffect(() => {
+    // This will log the updated state when teachers changes
+    //console.log("bkd: ", teachers);
+  }, [teachers]); // Add teachers to the dependency array
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
   };
 
   const handleSubmit = async (e) => {
@@ -24,8 +33,8 @@ const Navbar = () => {
     try {
       const response = await axios.post('http://localhost:5000/api/teachers/add', formData);
       //console.log(response.data); // Assuming the server responds with some data
-      setTeachers([...teachers, formData]);
-      //console.log("Teachers dekho : ", teachers);
+      setTeachers([...teachers, response.data.teacher]);
+      //console.log("Teachers dekho : ", response.data.teacher);
 
       setFormData({
         name: '',
@@ -38,6 +47,16 @@ const Navbar = () => {
     }
   };
 
+  useEffect(() => {
+    // This will log the updated state when teachers changes
+    //console.log("bkd: ", teachers);
+  }); // Add teachers to the dependency array
+  useEffect(() => {
+    // This will log the updated state when teachers changes
+    //console.log("bkd: ", teachers);
+  }, [teachers]); // Add teachers to the dependency array
+
+
   const clearFields = (e) => {
     setFormData({
       name: '',
@@ -47,13 +66,36 @@ const Navbar = () => {
     });
   };
 
+  const handleSearchSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.get(`http://localhost:5000/api/teachers/search?name=${searchQuery}`);
+      console.log("Search mein: ", response.data);
+      setTeachers(response.data);
+    } catch (error) {
+      console.error('Error searching for teachers:', error);
+    }
+  };
+
+  const showAllTeachers = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/teachers');
+      setTeachers(response.data);
+
+      // console.log("Response data: ", response.data);
+    } catch (error) {
+      console.error('Error fetching teachers:', error);
+    }
+  }
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            TMA
-          </a>
+          <button className="btn btn-success" onClick={showAllTeachers}>
+            All Teachers
+          </button>
           <button
             className="navbar-toggler"
             type="button"
@@ -68,14 +110,13 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#addteacher">
+                <a className="nav-link active" aria-current="page" data-bs-toggle="modal" data-bs-target="#addteacher">
                   Add-Teacher
                 </a>
               </li>
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
-                  href="#"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
@@ -115,12 +156,14 @@ const Navbar = () => {
                 </div>
               </li>
             </ul>
-            <form className="d-flex" role="search">
+            <form onSubmit={handleSearchSubmit} className="d-flex" role="search">
               <input
                 className="form-control me-2"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                value={searchQuery}
+                onChange={handleSearchChange}
               />
               <button className="btn btn-outline-success" type="submit">
                 Search

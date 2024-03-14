@@ -81,7 +81,7 @@ export const searchTeacherController = async (req, res) => {
 
   // Get the name parameter from the query
   const { name } = req.query;
-  //console.log(name);
+  //console.log("andar : ", req.query);
 
   // Searching logic based on name
   const searchResults = teachers.filter((teacher) => {
