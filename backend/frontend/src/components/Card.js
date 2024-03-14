@@ -34,7 +34,7 @@ const Card = (props) => {
     e.preventDefault();
 
     try {
-      const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/teachers/update/${props.teacher.id}`, updateFormData);
+      const response = await axios.put(`/api/teachers/update/${props.teacher.id}`, updateFormData);
       console.log(response.data); // Assuming the server responds with some data
       // onUpdate(); // Trigger a callback to refresh the teacher data
 
@@ -55,7 +55,7 @@ const Card = (props) => {
     e.preventDefault();
 
     try {
-      const response = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/teachers/delete/${props.teacher.id}`);
+      const response = await axios.delete(`/api/teachers/delete/${props.teacher.id}`);
       //console.log(response.data); // Assuming the server responds with some data
       // onUpdate(); // Trigger a callback to refresh the teacher data
 
