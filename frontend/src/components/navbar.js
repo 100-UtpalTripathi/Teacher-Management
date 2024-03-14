@@ -133,14 +133,17 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-expand-md bg-body-tertiary">
         <div className="container-fluid">
-          <button className="btn btn-success" onClick={showAllTeachers}>
+          <a className="btn btn-primary" style={{ "margin-right": "10px" }} onClick={showAllTeachers}>
             All Teachers
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
           </button>
 
           <div className="collapse navbar-collapse ml-2" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul className="navbar-nav me-auto">
               <li className="nav-item">
                 <a className="btn btn-primary" aria-current="page" data-bs-toggle="modal" data-bs-target="#addteacher">
                   Add-Teacher
@@ -157,20 +160,20 @@ const Navbar = () => {
                 </a>
                 <ul className='dropdown-menu'>
                   <li>
-                    <form onSubmit={handleFilterSubmit} className="d-flex dropdown-item">
+                    <form onSubmit={handleFilterSubmit} className="d-flex flex-column dropdown-item">
                       {/* Age filter */}
                       <div className='dropdown-item'>
-                        <label htmlFor="minAge">Min Age:</label>
-                        <input type="number" id="minAge" value={minAge} onChange={handleMinAgeChange} />
+                        <label htmlFor="minAge"></label>
+                        <input type="number" id="minAge" placeholder='Min Age' value={minAge} onChange={handleMinAgeChange} />
                       </div>
                       <div className='dropdown-item'>
-                        <label htmlFor="maxAge">Max Age:</label>
-                        <input type="number" id="maxAge" value={maxAge} onChange={handleMaxAgeChange} />
+                        <label htmlFor="maxAge"></label>
+                        <input type="number" id="maxAge" placeholder='Max Age' value={maxAge} onChange={handleMaxAgeChange} />
                       </div>
                       {/* Number of classes filter */}
                       <div className='dropdown-item'>
-                        <label htmlFor="classes">Number of Classes:</label>
-                        <input type="number" id="classes" value={classes} onChange={handleNumClassesChange} />
+                        <label htmlFor="classes"></label>
+                        <input type="number" id="classes" placeholder='No of Classes' value={classes} onChange={handleNumClassesChange} />
                       </div>
                       <button type="submit">Apply Filters</button>
                     </form>
