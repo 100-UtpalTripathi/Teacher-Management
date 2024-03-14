@@ -4,7 +4,7 @@ import uniqid from "uniqid";
 const dataFilePath = "../frontend/build/teachers.json";
 
 // Function to read data from the file asynchronously
-const readDataFromFile = async () => {
+export const readDataFromFile = async () => {
   try {
     const data = fs.readFileSync(dataFilePath, "utf-8");
     return await JSON.parse(data);
