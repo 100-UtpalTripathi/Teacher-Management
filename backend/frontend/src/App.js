@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/teachers`);
+        const response = await axios.get("/api/teachers");
         setTeachers(response.data);
 
         // console.log("Response data: ", response.data);
