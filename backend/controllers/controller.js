@@ -1,7 +1,7 @@
 import fs from "fs";
 import uniqid from "uniqid";
 
-const dataFilePath = "../frontend/build/teachers.json";
+const dataFilePath = "./teachers.json";
 
 // Function to read data from the file asynchronously
 export const readDataFromFile = async () => {
