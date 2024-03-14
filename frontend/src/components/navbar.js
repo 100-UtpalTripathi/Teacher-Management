@@ -7,6 +7,10 @@ const Navbar = () => {
   const [teachers, setTeachers] = UseTeacherData();
   const [searchQuery, setSearchQuery] = useState('');
 
+  const [minAge, setMinAge] = useState('');
+  const [maxAge, setMaxAge] = useState('');
+  const [classes, setClasses] = useState('');
+
   const [formData, setFormData] = useState({
     name: '',
     age: '',
@@ -47,14 +51,7 @@ const Navbar = () => {
     }
   };
 
-  useEffect(() => {
-    // This will log the updated state when teachers changes
-    //console.log("bkd: ", teachers);
-  }); // Add teachers to the dependency array
-  useEffect(() => {
-    // This will log the updated state when teachers changes
-    //console.log("bkd: ", teachers);
-  }, [teachers]); // Add teachers to the dependency array
+
 
 
   const clearFields = (e) => {
@@ -72,7 +69,9 @@ const Navbar = () => {
     try {
       const response = await axios.get(`http://localhost:5000/api/teachers/search?name=${searchQuery}`);
       console.log("Search mein: ", response.data);
+
       setTeachers(response.data);
+
     } catch (error) {
       console.error('Error searching for teachers:', error);
     }
@@ -89,6 +88,28 @@ const Navbar = () => {
     }
   }
 
+  const handleMinAgeChange = (e) => {
+    setMinAge(e.target.value);
+  };
+  const handleMaxAgeChange = (e) => {
+    setMaxAge(e.target.value);
+  };
+  const handleNumClassesChange = (e) => {
+    setClasses(e.target.value);
+  };
+
+  const handleFilterSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.get(`http://localhost:5000/api/teachers/filter?minAge=${minAge}&maxAge=${maxAge}&classes=${classes}`);
+      console.log("Filtered teachers: ", response.data);
+      setTeachers(response.data);
+    } catch (error) {
+      console.error('Error filtering teachers:', error);
+    }
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -96,21 +117,11 @@ const Navbar = () => {
           <button className="btn btn-success" onClick={showAllTeachers}>
             All Teachers
           </button>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+
+          <div className="collapse navbar-collapse ml-2" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" data-bs-toggle="modal" data-bs-target="#addteacher">
+                <a className="btn btn-primary" aria-current="page" data-bs-toggle="modal" data-bs-target="#addteacher">
                   Add-Teacher
                 </a>
               </li>
@@ -123,37 +134,33 @@ const Navbar = () => {
                 >
                   Filter
                 </a>
-                <div>
-                  <ul className="dropdown-menu">
-                    <li>
+                <ul className='dropdown-menu'>
+                  <li>
+                    <form onSubmit={handleFilterSubmit} className="d-flex dropdown-item">
+                      {/* Age filter */}
+                      <div className='dropdown-item'>
+                        <label htmlFor="minAge">Min Age:</label>
+                        <input type="number" id="minAge" value={minAge} onChange={handleMinAgeChange} />
+                      </div>
+                      <div className='dropdown-item'>
+                        <label htmlFor="maxAge">Max Age:</label>
+                        <input type="number" id="maxAge" value={maxAge} onChange={handleMaxAgeChange} />
+                      </div>
+                      {/* Number of classes filter */}
+                      <div className='dropdown-item'>
+                        <label htmlFor="classes">Number of Classes:</label>
+                        <input type="number" id="classes" value={classes} onChange={handleNumClassesChange} />
+                      </div>
+                      <button type="submit">Apply Filters</button>
+                    </form>
+                  </li>
+                </ul>
 
-                      Age
-                      <div className="age-container">
-                        <div>
-                          <label htmlFor="min"></label>
-                          <input type="number" id="min" placeholder="Min" />
-                        </div>
-                        <div>
-                          <label htmlFor="max"></label>
-                          <input type="number" id="max" placeholder="Max" />
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div>
-                        No. of Classes:
-                        <label htmlFor="classes"></label>
-                        <input type="number" id="classes" placeholder="classes" />
-                      </div>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider" />
-                    </li>
-                    <li>
-                      <button type="button" className="btn btn-success btn-sn">Apply</button>
-                    </li>
-                  </ul>
-                </div>
+              </li>
+              <li>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bonusModal">
+                  Bonus
+                </button>
               </li>
             </ul>
             <form onSubmit={handleSearchSubmit} className="d-flex" role="search">
@@ -164,6 +171,7 @@ const Navbar = () => {
                 aria-label="Search"
                 value={searchQuery}
                 onChange={handleSearchChange}
+                required
               />
               <button className="btn btn-outline-success" type="submit">
                 Search
@@ -215,6 +223,27 @@ const Navbar = () => {
                   <button type="submit" className="btn btn-success " data-bs-dismiss="modal">Add</button>
                 </div>
               </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      {/* Modal for bonus */}
+      <div class="modal fade" id="bonusModal" tabindex="-1" aria-labelledby="bonusModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="bonusModalLabel">Modal title</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
             </div>
           </div>
         </div>

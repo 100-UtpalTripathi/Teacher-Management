@@ -43,7 +43,7 @@ export const addTeacherController = async (req, res) => {
   let uid = uniqid();
   newTeacher["id"] = uid;
 
-  console.log(newTeacher);
+  //console.log(newTeacher);
   teachers.push(newTeacher);
   writeDataToFile(teachers);
   res.json({ message: "Teacher added successfully", teacher: newTeacher });
@@ -55,23 +55,61 @@ export const filterTeacherController = async (req, res) => {
 
   // Get filtering parameters from the query
   const { minAge, maxAge, classes } = req.query;
-  console.log(req.query);
+  //console.log(req.query);
 
   // Convert age and classes to integers
   const minAgeFilter = parseInt(minAge);
   const maxAgeFilter = parseInt(maxAge);
   const classesFilter = parseInt(classes);
 
-  // Filtering logic based on age range and classes
-  console.log(teachers);
-  const filteredTeachers = teachers.filter((teacher) => {
-    const isAgeInRange =
-      (!minAgeFilter || teacher.age >= minAgeFilter) &&
-      (!maxAgeFilter || teacher.age <= maxAgeFilter);
+  //console.log("minAge: ", minAgeFilter);
+  //console.log("maxAge: ", maxAgeFilter);
+  //console.log("classes: ", classesFilter);
 
-    return isAgeInRange && (!classesFilter || teacher.classes === classesFilter);
-  });
-  //console.log(filteredTeachers);
+  let filteredTeachers = [];
+  if (minAge && !maxAge && !classes) {
+    // Filter by minimum age only
+    console.log("last chali??");
+    filteredTeachers = teachers.filter((teacher) => {
+      return teacher.age >= minAgeFilter;
+    });
+  } else if (!minAge && maxAge && !classes) {
+    // Filter by maximum age only
+    filteredTeachers = teachers.filter((teacher) => {
+      return teacher.age <= maxAgeFilter;
+    });
+  } else if (minAge && maxAge && !classes) {
+    // Filter by both minimum and maximum age
+    filteredTeachers = teachers.filter((teacher) => {
+      return teacher.age >= minAgeFilter && teacher.age <= maxAgeFilter;
+    });
+  } else if (!minAge && !maxAge && classes) {
+    // Filter by number of classes only
+    filteredTeachers = teachers.filter((teacher) => {
+      return teacher.classes == classesFilter;
+    });
+  } else if (minAge && !maxAge && classes) {
+    // Filter by minimum age and number of classes
+    filteredTeachers = teachers.filter((teacher) => {
+      return teacher.age >= minAgeFilter && teacher.classes == classesFilter;
+    });
+  } else if (!minAge && maxAge && classes) {
+    // Filter by maximum age and number of classes
+    filteredTeachers = teachers.filter((teacher) => {
+      return teacher.age <= maxAgeFilter && teacher.classes == classesFilter;
+    });
+  } else if (minAge && maxAge && classes) {
+
+    // Filter by minimum age, maximum age, and number of classes
+    filteredTeachers = teachers.filter((teacher) => {
+      return (
+        teacher.age >= minAgeFilter &&
+        teacher.age <= maxAgeFilter &&
+        teacher.classes == classesFilter
+      );
+    });
+  }
+  // No filter applied (return all teachers)
   res.json(filteredTeachers);
 };
 
@@ -93,6 +131,7 @@ export const searchTeacherController = async (req, res) => {
     return lowercaseName.includes(lowercaseQuery);
   });
   //console.log(searchResults);
+  // if()
   res.json(searchResults);
 };
 

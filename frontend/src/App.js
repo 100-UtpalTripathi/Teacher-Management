@@ -36,9 +36,11 @@ function App() {
     <div className="App">
       <Navbar />
       <div className="card-container">
-        {teachers.map((teacher) => (
+        {teachers.length > 0 ? (teachers.map((teacher) => (
           <Card key={teacher.id} teacher={teacher} />
-        ))}
+        ))) : (
+          <div className="text-center mt-4"><h4>No Teachers Found!</h4></div>
+        )}
       </div>
     </div>
   );
