@@ -19,12 +19,12 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '/frontend/build')));
 
 
-app.get("*", (req, res) => {
+// app.get('/', (req, res) => {
+//   res.send("<h1> Checking </h1>")
+// });
+app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, '/frontend/build/index.html'));
 })
-app.get('/', (req, res) => {
-  res.send("<h1> Checking </h1>")
-});
 
 readDataFromFile();
 app.use("/api", router);
