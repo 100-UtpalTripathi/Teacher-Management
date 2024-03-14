@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+import { UseTeacherData } from '../contexts/TeacherContext';
+
 const Card = (props) => {
+
+  const [teachers, setTeachers] = UseTeacherData();
+  //console.log("In Card.js : ", teachers);
+
   const [updateFormData, setUpdateFormData] = useState({
     name: props.teacher.name,
     age: props.teacher.age,
@@ -31,6 +37,15 @@ const Card = (props) => {
       const response = await axios.put(`http://localhost:5000/api/teachers/update/${props.teacher.id}`, updateFormData);
       console.log(response.data); // Assuming the server responds with some data
       // onUpdate(); // Trigger a callback to refresh the teacher data
+
+      const updatedTeachers = teachers.map((teacher) => {
+        if (teacher.id === props.teacher.id) {
+          return { ...teacher, ...updateFormData };
+        }
+        return teacher;
+      });
+      setTeachers(updatedTeachers);
+
     } catch (error) {
       console.error('Error updating teacher:', error);
     }
@@ -43,7 +58,6 @@ const Card = (props) => {
         <div className="card-body">
 
           <h5 className="card-title">{props.teacher.name}</h5>
-          <p className="card-text">Age: {props.teacher.id}</p>
           <p className="card-text">Age: {props.teacher.age}</p>
           <p className="card-text">DOB: {props.teacher.dob}</p>
           <p className="card-text">No. of Classes: {props.teacher.classes}</p>
@@ -150,7 +164,7 @@ const Card = (props) => {
                   <button type="button" className="btn btn-danger" data-bs-dismiss="modal">
                     Cancel
                   </button>
-                  <button type="submit" className="btn btn-success">
+                  <button type="submit" className="btn btn-success" data-bs-dismiss="modal">
                     Update
                   </button>
                 </div>

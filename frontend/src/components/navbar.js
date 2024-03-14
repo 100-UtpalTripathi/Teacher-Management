@@ -1,9 +1,10 @@
 import { React, useState, useEffect } from 'react';
 import '../css/navbar.css';
 import axios from "axios";
-
+import { UseTeacherData } from '../contexts/TeacherContext';
 
 const Navbar = () => {
+  const [teachers, setTeachers] = UseTeacherData();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -22,10 +23,28 @@ const Navbar = () => {
 
     try {
       const response = await axios.post('http://localhost:5000/api/teachers/add', formData);
-      console.log(response.data); // Assuming the server responds with some data
+      //console.log(response.data); // Assuming the server responds with some data
+      setTeachers([...teachers, formData]);
+      //console.log("Teachers dekho : ", teachers);
+
+      setFormData({
+        name: '',
+        age: '',
+        dob: '',
+        classes: ''
+      });
     } catch (error) {
       console.error('Error adding teacher:', error);
     }
+  };
+
+  const clearFields = (e) => {
+    setFormData({
+      name: '',
+      age: '',
+      dob: '',
+      classes: ''
+    });
   };
 
   return (
@@ -149,8 +168,8 @@ const Navbar = () => {
                 </div>
 
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                  <button type="submit" className="btn btn-success">Add</button>
+                  <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={clearFields}>Cancel</button>
+                  <button type="submit" className="btn btn-success " data-bs-dismiss="modal">Add</button>
                 </div>
               </form>
             </div>

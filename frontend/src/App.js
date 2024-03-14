@@ -2,11 +2,14 @@ import './App.css';
 import Navbar from './components/Navbar.js';
 import Card from './components/Card.js';
 import axios from "axios";
-import { React, useEffect, useState } from "react";
+import { React, useEffect } from "react";
+import { UseTeacherData } from './contexts/TeacherContext.js';
+
+
 
 
 function App() {
-  const [teachers, setTeachers] = useState([]);
+  const [teachers, setTeachers] = UseTeacherData();
 
   useEffect(() => {
     const fetchTeachers = async () => {
@@ -26,7 +29,7 @@ function App() {
 
   useEffect(() => {
     // This will log the updated state when teachers changes
-    console.log("bkd: ", teachers);
+    //console.log("bkd: ", teachers);
   }, [teachers]); // Add teachers to the dependency array
 
   return (

@@ -1,32 +1,23 @@
 [
   {
-    "name": "Mordor",
-    "age": 24,
-    "dob": "05/2/2001",
-    "classes": 5,
-    "id": "46a2u8pclcltpo5vfk"
-  },
-  {
-    "name": "toaa",
-    "age": 25,
-    "dob": "05/2/2009",
-    "classes": 5,
-    "id": "46a2u8pa2wltpo6acd",
-    "teacherName": "toaa",
-    "noOfClasses": 5
-  },
-  {
-    "name": "Utpal Tripathi",
-    "age": "2",
+    "name": "Albatross Op",
+    "age": "5",
     "dob": "2024-03-15",
-    "classes": "6",
-    "id": "46a2u8pezsltq19hmb"
+    "classes": "5",
+    "id": "gf0ltr23ox5"
   },
   {
-    "name": "Utpal Tripathi",
-    "age": "56",
-    "dob": "2024-03-15",
-    "classes": "6",
-    "id": "46a2u8pg38ltq1a725"
+    "name": "Peacock",
+    "age": "10",
+    "dob": "2024-03-08",
+    "classes": "5",
+    "id": "8b4ltr2find"
+  },
+  {
+    "name": "Dr. Sparrow",
+    "age": "10",
+    "dob": "2024-03-02",
+    "classes": "10",
+    "id": "amsltr2g49s"
   }
 ]
