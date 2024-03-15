@@ -6,7 +6,7 @@
     ~ Empowering Education, Managing Excellence: Welcome to TMA - Where Teachers Thrive!
     <br/>
     <br/>
-    <a href="https://github.com/100-UtpalTripathi/Teacher-Management/main/Readme.md"><strong>Explore the Docs >>></strong></a>
+    <a href="https://github.com/100-UtpalTripathi/Teacher-Management/blob/main/Readme.md"><strong>Explore the Docs >>></strong></a>
     <br/><br/>
     <a href="https://teacher-management-uein.onrender.com/">View Demo</a>
     .
