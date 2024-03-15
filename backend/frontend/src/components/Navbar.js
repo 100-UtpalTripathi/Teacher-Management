@@ -4,46 +4,53 @@ import axios from "axios";
 import { UseTeacherData } from '../contexts/TeacherContext';
 
 const Navbar = () => {
+
+  // all teacher data state
   const [teachers, setTeachers] = UseTeacherData();
+
+  // search query
   const [searchQuery, setSearchQuery] = useState('');
 
+  // filters
   const [minAge, setMinAge] = useState('');
   const [maxAge, setMaxAge] = useState('');
   const [classes, setClasses] = useState('');
   const [avgClasses, setAvgClasses] = useState('');
 
+  // add new Teacher
   const [formData, setFormData] = useState({
     name: '',
-    age: '',
     dob: '',
     classes: '',
   });
 
   useEffect(() => {
-    // This will log the updated state when teachers changes
     //console.log("bkd: ", teachers);
-  }, [teachers]); // Add teachers to the dependency array
+  }, [teachers]);
 
+  // function to handle add new Teacher data and updating the state
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
+  //function to handle search data
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
+  // function to add new teacher
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post("/api/teachers/add", formData);
-      //console.log(response.data); // Assuming the server responds with some data
+      //console.log(response.data); 
       setTeachers([...teachers, response.data.teacher]);
       //console.log("Teachers dekho : ", response.data.teacher);
 
       setFormData({
         name: '',
-        age: '',
         dob: '',
         classes: ''
       });
@@ -52,18 +59,16 @@ const Navbar = () => {
     }
   };
 
-
-
-
+  // function to clear form fields
   const clearFields = (e) => {
     setFormData({
       name: '',
-      age: '',
       dob: '',
       classes: ''
     });
   };
 
+  // function to handle search query
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
 
@@ -78,6 +83,7 @@ const Navbar = () => {
     }
   };
 
+  // function to get all the teachers
   const showAllTeachers = async () => {
     try {
       const response = await axios.get("/api/teachers");
@@ -89,6 +95,7 @@ const Navbar = () => {
     }
   };
 
+  // functions to handle filter data
   const handleMinAgeChange = (e) => {
     setMinAge(e.target.value);
   };
@@ -99,6 +106,7 @@ const Navbar = () => {
     setClasses(e.target.value);
   };
 
+  // function to handle filter submit
   const handleFilterSubmit = async (e) => {
     e.preventDefault();
 
@@ -111,6 +119,7 @@ const Navbar = () => {
     }
   };
 
+  // function to get the average classes per teacher
   const getAvgClasses = async () => {
     try {
       const response = await axios.get("/api/teachers");
@@ -143,13 +152,13 @@ const Navbar = () => {
           </button>
 
           <div className="collapse navbar-collapse ml-2" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto">
+            <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="btn btn-primary" aria-current="page" data-bs-toggle="modal" data-bs-target="#addteacher">
+                <a className="btn btn-secondary" aria-current="page" data-bs-toggle="modal" data-bs-target="#addteacher">
                   Add-Teacher
                 </a>
               </li>
-              <li className="nav-item dropdown">
+              <li className="nav-item dropdown ml-4 mr-4">
                 <a
                   className="nav-link dropdown-toggle"
                   role="button"
@@ -175,15 +184,15 @@ const Navbar = () => {
                         <label htmlFor="classes"></label>
                         <input type="number" id="classes" placeholder='No of Classes' value={classes} onChange={handleNumClassesChange} />
                       </div>
-                      <button type="submit">Apply Filters</button>
+                      <button type="submit" className='mt-2 btn btn-primary'>Apply Filters</button>
                     </form>
                   </li>
                 </ul>
 
               </li>
               <li>
-                <button type="button" onClick={getAvgClasses} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bonusModal">
-                  Bonus
+                <button type="button" onClick={getAvgClasses} class="btn btn-info" data-bs-toggle="modal" data-bs-target="#bonusModal">
+                  Avg Classes
                 </button>
               </li>
             </ul>
@@ -227,10 +236,10 @@ const Navbar = () => {
                   <input type="text" className="form-control" id="name" name="name" value={formData.name} onChange={handleInputChange} required />
                 </div>
 
-                <div className="mb-3">
+                {/* <div className="mb-3">
                   <label htmlFor="age" className="form-label">Age</label>
                   <input type="number" className="form-control" id="age" name="age" value={formData.age} onChange={handleInputChange} />
-                </div>
+                </div> */}
 
                 <div className="mb-3">
                   <label htmlFor="dob" className="form-label">Date of Birth</label>
@@ -254,7 +263,7 @@ const Navbar = () => {
 
 
 
-      {/* Modal for bonus */}
+      {/* Modal for showing Average classes per teacher */}
       <div class="modal fade" id="bonusModal" tabindex="-1" aria-labelledby="bonusModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">

@@ -2,3 +2,34 @@
   display: flex;
   flex-direction: row;
 }
+
+.bg-body-tertiary {
+  background-color: #2a2a2a !important;
+}
+
+.container-fluid {
+  align-items: flex-start !important;
+}
+
+#navbarSupportedContent {
+  justify-content: space-around !important;
+}
+
+.navbar-nav > li
+{
+  margin-left: 10px;
+}
+
+.nav-link {
+  color: aquamarine;
+}
+
+.nav-link:hover {
+  color: rgb(9, 248, 208);
+}
+
+nav {
+  -webkit-box-shadow: 0px 10px 29px 6px rgba(117, 18, 222, 0.46);
+-moz-box-shadow: 0px 10px 29px 6px rgba(117, 18, 222, 0.46);
+box-shadow: 0px 10px 29px 6px rgba(117, 18, 222, 0.46);
+}

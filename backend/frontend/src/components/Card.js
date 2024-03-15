@@ -1,24 +1,26 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import "../css/card.css"
 
 import { UseTeacherData } from '../contexts/TeacherContext';
 
 const Card = (props) => {
 
+  // all teacher data 
   const [teachers, setTeachers] = UseTeacherData();
   //console.log("In Card.js : ", teachers);
 
+  //  for updating teacher data
   const [updateFormData, setUpdateFormData] = useState({
     name: props.teacher.name,
-    age: props.teacher.age,
     dob: props.teacher.dob,
     classes: props.teacher.classes,
   });
 
+  // function to handle updated data
   const handleUpdateClick = () => {
     setUpdateFormData({
       name: props.teacher.name,
-      age: props.teacher.age,
       dob: props.teacher.dob,
       classes: props.teacher.classes,
     });
@@ -29,18 +31,17 @@ const Card = (props) => {
     setUpdateFormData({ ...updateFormData, [name]: value });
   };
 
-
+  //function to update teacher data
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.put(`/api/teachers/update/${props.teacher.id}`, updateFormData);
-      console.log(response.data); // Assuming the server responds with some data
-      // onUpdate(); // Trigger a callback to refresh the teacher data
+      //console.log("Update ka data: ", response.data); 
 
       const updatedTeachers = teachers.map((teacher) => {
         if (teacher.id === props.teacher.id) {
-          return { ...teacher, ...updateFormData };
+          return { ...teacher, ...response.data.updatedTeacher };
         }
         return teacher;
       });
@@ -51,13 +52,13 @@ const Card = (props) => {
     }
   };
 
+  //function to handle deleted teacher data
   const handleDelete = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.delete(`/api/teachers/delete/${props.teacher.id}`);
-      //console.log(response.data); // Assuming the server responds with some data
-      // onUpdate(); // Trigger a callback to refresh the teacher data
+      //console.log(response.data);
 
       const updatedTeachers = teachers.filter((teacher) => teacher.id !== props.teacher.id);
       setTeachers(updatedTeachers);
@@ -69,8 +70,7 @@ const Card = (props) => {
 
   return (
     <>
-      <div className="card" style={{ width: "18rem", margin: "15px 8px" }}>
-        {/* <img src={teacher.image} className="card-img-top" alt="..." /> */}
+      <div className="card border border-2 border-dark" style={{ width: "18rem", margin: "15px 8px" }}>
         <div className="card-body">
 
           <h5 className="card-title">{props.teacher.name}</h5>
@@ -80,7 +80,7 @@ const Card = (props) => {
 
           <div className="d-flex justify-content-around">
             <a
-              className="btn btn-warning"
+              className="btn btn-warning border border-2 border-dark"
               data-bs-toggle="modal"
               data-bs-target={`#updateteacher-${props.teacher.id}`}
               onClick={handleUpdateClick}
@@ -89,7 +89,7 @@ const Card = (props) => {
             </a>
             <a onClick={handleDelete}
               data-bs-target={`#updateteacher-${props.teacher.id}`}
-              className="btn btn-danger">
+              className="btn btn-danger border border-2 border-dark">
               Delete
             </a>
           </div>
@@ -98,7 +98,7 @@ const Card = (props) => {
       {/* Your card content */}
 
 
-      {/* Update Teacher Modal */}
+      {/* Update Teacher Data Modal */}
       <div
         className="modal fade"
         id={`updateteacher-${props.teacher.id}`}
@@ -108,7 +108,7 @@ const Card = (props) => {
         aria-labelledby={`staticBackdropLabel-${props.teacher.id}`}
         aria-hidden="true"
       >
-        {/* Modal Content */}
+        {/* content */}
         <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header">
@@ -132,20 +132,6 @@ const Card = (props) => {
                     value={updateFormData.name}
                     onChange={handleInputChange}
                     required
-                  />
-                </div>
-
-                <div className="mb-3">
-                  <label htmlFor={`age-${props.teacher.id}`} className="form-label">
-                    Age
-                  </label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    id={`age-${props.teacher.id}`}
-                    name="age"
-                    value={updateFormData.age}
-                    onChange={handleInputChange}
                   />
                 </div>
 
@@ -178,10 +164,10 @@ const Card = (props) => {
                 </div>
 
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-danger" data-bs-dismiss="modal">
+                  <button type="button" className="btn btn-danger border border-2 border-dark" data-bs-dismiss="modal">
                     Cancel
                   </button>
-                  <button type="submit" className="btn btn-success" data-bs-dismiss="modal">
+                  <button type="submit" className="btn btn-success border border-2 border-dark" data-bs-dismiss="modal">
                     Update
                   </button>
                 </div>

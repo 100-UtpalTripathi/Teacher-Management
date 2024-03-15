@@ -44,7 +44,19 @@ export const addTeacherController = async (req, res) => {
   let uid = uniqid();
   newTeacher["id"] = uid;
 
-  //console.log(newTeacher);
+  // calculating and adding age from dob
+  const dob = new Date(newTeacher.dob);
+  const today = new Date();
+  let age = today.getFullYear() - dob.getFullYear();
+  const monthDiff = today.getMonth() - dob.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+    age--;
+  }
+
+  // Set the age property in the newTeacher object
+  newTeacher["age"] = age;
+
+  //console.log(newTeacher.dob);
   teachers.push(newTeacher);
   writeDataToFile(teachers);
   res.json({ message: "Teacher added successfully", teacher: newTeacher });
@@ -70,7 +82,6 @@ export const filterTeacherController = async (req, res) => {
   let filteredTeachers = [];
   if (minAge && !maxAge && !classes) {
     // Filter by minimum age only
-    console.log("last chali??");
     filteredTeachers = teachers.filter((teacher) => {
       return teacher.age >= minAgeFilter;
     });
@@ -146,7 +157,23 @@ export const updateTeacherController = async (req, res) => {
 
   if (teacherIndex !== -1) {
     // Update the teacher's profile based on the request body
-    const updatedTeacher = { ...teachers[teacherIndex], ...req.body };
+
+    const updatedTeacherData = req.body;
+
+    // Calculate age from date of birth if dob is provided
+    if (updatedTeacherData.dob) {
+      const dob = new Date(updatedTeacherData.dob);
+      const today = new Date();
+      let age = today.getFullYear() - dob.getFullYear();
+      const monthDiff = today.getMonth() - dob.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+        age--;
+      }
+      updatedTeacherData["age"] = age;
+    }
+
+    const updatedTeacher = { ...teachers[teacherIndex], ...updatedTeacherData };
+    console.log("UT: ", updatedTeacher);
     teachers[teacherIndex] = updatedTeacher;
     writeDataToFile(teachers);
     res.json({ message: "Teacher updated successfully", updatedTeacher });
