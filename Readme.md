@@ -24,7 +24,7 @@ Table Of Contents
 * [Authors](#authors)
 
 ## About The Project
-
+![Screen Shot](images/screenshot.png)
 The Teacher Management Application (TMA) is a comprehensive tool designed to simplify the management of teacher records in educational institutions. With features ranging from adding and updating teacher records to filtering and searching for teachers based on various criteria, TMA provides a user-friendly interface for efficient management of teacher data.
 
 Key Features
