@@ -131,6 +131,8 @@ const Card = (props) => {
                     name="name"
                     value={updateFormData.name}
                     onChange={handleInputChange}
+                    pattern="[a-zA-Z .]+"
+                    title="Please enter Alphabets only!"
                     required
                   />
                 </div>
@@ -146,6 +148,9 @@ const Card = (props) => {
                     name="dob"
                     value={updateFormData.dob}
                     onChange={handleInputChange}
+                    max="2006-03-15"
+                    title="Age must be greater than 18."
+                    required
                   />
                 </div>
 
@@ -160,6 +165,8 @@ const Card = (props) => {
                     name="classes"
                     value={updateFormData.classes}
                     onChange={handleInputChange}
+                    min="0" step="1"
+                    required
                   />
                 </div>
 
@@ -167,7 +174,7 @@ const Card = (props) => {
                   <button type="button" className="btn btn-danger border border-2 border-dark" data-bs-dismiss="modal">
                     Cancel
                   </button>
-                  <button type="submit" className="btn btn-success border border-2 border-dark" data-bs-dismiss="modal">
+                  <button type="submit" className="btn btn-success border border-2 border-dark">
                     Update
                   </button>
                 </div>

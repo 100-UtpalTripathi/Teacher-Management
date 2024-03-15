@@ -126,10 +126,17 @@
     "age": 37
   },
   {
-    "name": "Dr. White",
-    "dob": "1997-08-29",
-    "classes": 2,
+    "name": "Dr. white",
+    "dob": "2008-01-03",
+    "classes": "0",
     "id": "32q6n85v4c7b1m9x3z",
-    "age": 24
+    "age": 16
+  },
+  {
+    "name": "Poko",
+    "dob": "2006-03-02",
+    "classes": "5",
+    "id": "46a2u8pg38ltsqlv7l",
+    "age": 18
   }
 ]

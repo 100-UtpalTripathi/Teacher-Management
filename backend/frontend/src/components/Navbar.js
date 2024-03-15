@@ -200,10 +200,12 @@ const Navbar = () => {
               <input
                 className="form-control me-2"
                 type="search"
-                placeholder="Search"
+                placeholder="Search by name"
                 aria-label="Search"
                 value={searchQuery}
                 onChange={handleSearchChange}
+                pattern="[a-zA-Z .]+"
+                title="Please enter Alphabets only!"
                 required
               />
               <button className="btn btn-outline-success" type="submit">
@@ -233,7 +235,10 @@ const Navbar = () => {
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="name" className="form-label">Full Name</label>
-                  <input type="text" className="form-control" id="name" name="name" value={formData.name} onChange={handleInputChange} required />
+                  <input type="text" className="form-control" id="name" name="name" value={formData.name} onChange={handleInputChange} required
+                    pattern="[a-zA-Z .]+"
+                    title="Please enter Alphabets only!"
+                  />
                 </div>
 
                 {/* <div className="mb-3">
@@ -243,17 +248,20 @@ const Navbar = () => {
 
                 <div className="mb-3">
                   <label htmlFor="dob" className="form-label">Date of Birth</label>
-                  <input type="date" className="form-control" id="dob" name="dob" value={formData.dob} onChange={handleInputChange} />
+                  <input type="date" className="form-control" id="dob" name="dob" value={formData.dob} onChange={handleInputChange} required
+                    max="2006-03-15"
+                    title="Age must be greater than 18."
+                  />
                 </div>
 
                 <div className="mb-3">
                   <label htmlFor="classes" className="form-label">No. of Classes</label>
-                  <input type="number" className="form-control" id="classes" name="classes" value={formData.classes} onChange={handleInputChange} />
+                  <input type="number" className="form-control" id="classes" name="classes" value={formData.classes} onChange={handleInputChange} min="0" step="1" required />
                 </div>
 
                 <div className="modal-footer">
                   <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={clearFields}>Cancel</button>
-                  <button type="submit" className="btn btn-success " data-bs-dismiss="modal">Add</button>
+                  <button type="submit" className="btn btn-success " >Add</button>
                 </div>
               </form>
             </div>
