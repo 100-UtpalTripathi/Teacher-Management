@@ -7,11 +7,11 @@
     "age": 36
   },
   {
-    "name": "Dr. Smith",
-    "dob": "1978-09-20",
+    "name": "Dr. Smith Wales",
+    "dob": "2006-01-05",
     "classes": 4,
     "id": "83bx47cpz9mst6a2i",
-    "age": 43
+    "age": 18
   },
   {
     "name": "Dr. Johnson",
@@ -138,5 +138,12 @@
     "classes": "5",
     "id": "46a2u8pg38ltsqlv7l",
     "age": 18
+  },
+  {
+    "name": "Osmosis",
+    "dob": "1989-03-15",
+    "classes": "4",
+    "id": "46a2u8p2a8ltutv9xk",
+    "age": 35
   }
 ]

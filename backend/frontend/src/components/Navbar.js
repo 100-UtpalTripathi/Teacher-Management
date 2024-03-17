@@ -3,6 +3,12 @@ import '../css/navbar.css';
 import axios from "axios";
 import { UseTeacherData } from '../contexts/TeacherContext';
 
+
+// Calculate today's date, for setting up constraint dynamically
+const today = new Date();
+// Calculate the date 18 years ago
+const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+
 const Navbar = () => {
 
   // all teacher data state
@@ -249,7 +255,7 @@ const Navbar = () => {
                 <div className="mb-3">
                   <label htmlFor="dob" className="form-label">Date of Birth</label>
                   <input type="date" className="form-control" id="dob" name="dob" value={formData.dob} onChange={handleInputChange} required
-                    max="2006-03-15"
+                    max={maxDate.toISOString().split('T')[0]}
                     title="Age must be greater than 18."
                   />
                 </div>

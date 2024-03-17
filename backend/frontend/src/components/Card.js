@@ -2,7 +2,15 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import "../css/card.css"
 
+
 import { UseTeacherData } from '../contexts/TeacherContext';
+
+
+// Calculate today's date, for setting up constraint dynamically
+const today = new Date();
+// Calculate the date 18 years ago
+const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+
 
 const Card = (props) => {
 
@@ -44,6 +52,10 @@ const Card = (props) => {
           return { ...teacher, ...response.data.updatedTeacher };
         }
         return teacher;
+
+
+
+
       });
       setTeachers(updatedTeachers);
 
@@ -148,7 +160,7 @@ const Card = (props) => {
                     name="dob"
                     value={updateFormData.dob}
                     onChange={handleInputChange}
-                    max="2006-03-15"
+                    max={maxDate.toISOString().split('T')[0]}
                     title="Age must be greater than 18."
                     required
                   />
