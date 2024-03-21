@@ -38,7 +38,7 @@ function App() {
         {teachers.length > 0 ? (teachers.map((teacher) => (
           <Card key={teacher.id} teacher={teacher} />
         ))) : (
-          <div className="text-center mt-4"><h4>No Teachers Found!</h4></div>
+          <div className="text-center mt-4" style={{ color: "white" }}><h4>No Teachers Found!</h4></div>
         )}
       </div>
     </div>
