@@ -9,16 +9,9 @@
   {
     "name": "Dr. Smith Wales",
     "dob": "2006-01-05",
-    "classes": 4,
+    "classes": "5",
     "id": "83bx47cpz9mst6a2i",
     "age": 18
-  },
-  {
-    "name": "Dr. Johnson",
-    "dob": "1990-03-28",
-    "classes": 6,
-    "id": "24jp59m7x8bc3s1za",
-    "age": 32
   },
   {
     "name": "Dr. Lee",

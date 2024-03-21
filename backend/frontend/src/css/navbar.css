@@ -27,9 +27,60 @@
 .nav-link:hover {
   color: rgb(9, 248, 208);
 }
+nav{
+  background-color: rgb(24,26,27,1) !important;
+  border-bottom: 1px solid;
+  border-bottom-color: rgb(66,72,75,1) !important;
+  padding: 15px 0px;
+  color: azure;
+  font-size: 20px;
+}
 
-nav {
-  -webkit-box-shadow: 0px 10px 29px 6px rgba(117, 18, 222, 0.46);
--moz-box-shadow: 0px 10px 29px 6px rgba(117, 18, 222, 0.46);
-box-shadow: 0px 10px 29px 6px rgba(117, 18, 222, 0.46);
+.navButton {
+  background-color: transparent;
+  border: none;
+  color: azure;
+  font-size: 20px;
+}
+.navButton:hover {
+  color: #03d82a;
+}
+
+.dropdown-menu{
+  background: rgb(26, 38, 48) !important;
+}
+form input{
+  background-color:transparent;
+  border: 1px solid white;
+  color:white;
+  padding: 5px;
+}
+form input::placeholder{
+  color: rgb(116, 141, 161);
+}
+
+form div:hover{
+  background: rgb(26, 38, 48, 1) !important;
+  color: white;
+}
+form:hover {
+  background: rgb(26, 38, 48, 1) !important;
+}
+
+
+.modal-body{
+  background: rgb(26, 38, 48, 1) !important;
+  color: white;
+}
+
+.modal-body label{
+}
+.modal-body input{
+    background: transparent;
+    color: white;
+    border: 1px solid white !important;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,102,203, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }

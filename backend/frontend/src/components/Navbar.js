@@ -148,19 +148,19 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-md bg-body-tertiary">
+      <nav className="navbar navbar-expand-md">
         <div className="container-fluid">
-          <a className="btn btn-primary" style={{ "margin-right": "10px" }} onClick={showAllTeachers}>
+          <a className="btn navButton" style={{ "margin-right": "10px" }} onClick={showAllTeachers}>
             All Teachers
           </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon light"></span>
           </button>
 
           <div className="collapse navbar-collapse ml-2" id="navbarSupportedContent">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="btn btn-secondary" aria-current="page" data-bs-toggle="modal" data-bs-target="#addteacher">
+                <a className="btn navButton" aria-current="page" data-bs-toggle="modal" data-bs-target="#addteacher">
                   Add-Teacher
                 </a>
               </li>
@@ -190,14 +190,14 @@ const Navbar = () => {
                         <label htmlFor="classes"></label>
                         <input type="number" id="classes" placeholder='No of Classes' value={classes} onChange={handleNumClassesChange} />
                       </div>
-                      <button type="submit" className='mt-2 btn btn-primary'>Apply Filters</button>
+                      <button type="submit" className='mt-2 btn btn-success'>Apply Filters</button>
                     </form>
                   </li>
                 </ul>
 
               </li>
               <li>
-                <button type="button" onClick={getAvgClasses} class="btn btn-info" data-bs-toggle="modal" data-bs-target="#bonusModal">
+                <button type="button" onClick={getAvgClasses} className="btn navButton" data-bs-toggle="modal" data-bs-target="#bonusModal">
                   Avg Classes
                 </button>
               </li>
@@ -211,7 +211,7 @@ const Navbar = () => {
                 value={searchQuery}
                 onChange={handleSearchChange}
                 pattern="[a-zA-Z .]+"
-                title="Please enter Alphabets only!"
+                title="Please enter the alphabets only!"
                 required
               />
               <button className="btn btn-outline-success" type="submit">
@@ -278,18 +278,18 @@ const Navbar = () => {
 
 
       {/* Modal for showing Average classes per teacher */}
-      <div class="modal fade" id="bonusModal" tabindex="-1" aria-labelledby="bonusModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="bonusModalLabel">Additional Info</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div className="modal fade" id="bonusModal" tabindex="-1" aria-labelledby="bonusModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="bonusModalLabel">Additional Info</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               (Average classes per Teacher : {avgClasses})
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
