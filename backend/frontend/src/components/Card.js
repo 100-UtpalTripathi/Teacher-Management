@@ -51,10 +51,10 @@ const Card = (props) => {
         if (teacher.id === props.teacher.id) {
           return { ...teacher, ...response.data.updatedTeacher };
         }
+
+        document.querySelector(`#close-${props.teacher.id}`).click();
+
         return teacher;
-
-
-
 
       });
       setTeachers(updatedTeachers);
@@ -130,7 +130,7 @@ const Card = (props) => {
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
-              <form onSubmit={handleUpdateSubmit}>
+              <form onSubmit={handleUpdateSubmit} >
                 {/* Your form inputs */}
                 <div className="mb-3">
                   <label htmlFor={`name-${props.teacher.id}`} className="form-label">
@@ -183,7 +183,7 @@ const Card = (props) => {
                 </div>
 
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-danger border border-2 border-dark" data-bs-dismiss="modal">
+                  <button type="button" id={`close-${props.teacher.id}`} className="btn btn-danger border border-2 border-dark" data-bs-dismiss="modal">
                     Cancel
                   </button>
                   <button type="submit" className="btn btn-success border border-2 border-dark">

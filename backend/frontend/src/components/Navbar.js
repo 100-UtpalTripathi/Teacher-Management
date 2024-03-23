@@ -166,10 +166,11 @@ const Navbar = () => {
               </li>
               <li className="nav-item dropdown ml-4 mr-4">
                 <a
-                  className="nav-link dropdown-toggle"
+                  className="nav-link dropdown-toggle cusFilter"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
+                  id="filterLink"
                 >
                   Filter
                 </a>
@@ -202,7 +203,7 @@ const Navbar = () => {
                 </button>
               </li>
             </ul>
-            <form onSubmit={handleSearchSubmit} className="d-flex" role="search">
+            <form onSubmit={handleSearchSubmit} className="d-flex" role="search" id="searchBar">
               <input
                 className="form-control me-2"
                 type="search"
