@@ -73,9 +73,6 @@ form:hover {
   background: rgb(26, 38, 48, 1) !important;
   color: white;
 }
-
-.modal-body label{
-}
 .modal-body input{
     background: transparent;
     color: white;

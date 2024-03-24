@@ -84,13 +84,6 @@
     "age": 30
   },
   {
-    "name": "Dr. Gonzalez",
-    "dob": "1979-05-07",
-    "classes": 2,
-    "id": "72x5z84q6v3n9b1m7l",
-    "age": 42
-  },
-  {
     "name": "Dr. Wilson",
     "dob": "1996-01-29",
     "classes": 3,
@@ -138,5 +131,12 @@
     "classes": "2",
     "id": "46a2u8pdvslu3qcphf",
     "age": 27
+  },
+  {
+    "name": "poko",
+    "dob": "2006-03-03",
+    "classes": "10",
+    "id": "46a2u8pe14lu5cj1sg",
+    "age": 18
   }
 ]

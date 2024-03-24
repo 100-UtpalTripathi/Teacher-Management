@@ -17,7 +17,7 @@ function App() {
         const response = await axios.get("/api/teachers");
         setTeachers(response.data);
 
-        console.log("Response data: ", response.data);
+        //console.log("Response data: ", response.data);
       } catch (error) {
         console.error('Error fetching teachers:', error);
       }
@@ -27,9 +27,9 @@ function App() {
     fetchTeachers();
   }, []);
 
-  useEffect(() => {
-    setTeachers(teachers);
-  }, [teachers, setTeachers]); // Add teachers to the dependency array
+  // useEffect(() => {
+  //   setTeachers(teachers);
+  // }, [teachers, setTeachers]); // Add teachers to the dependency array
 
   return (
     <div className="App">
